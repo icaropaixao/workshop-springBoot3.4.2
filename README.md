@@ -20,10 +20,6 @@ Projeto workshop, web service com Spring Boot e JPA / Hibernate
 - **PUT** `/produtos/{id}` - Atualiza.
 - **DELETE** `/produtos/{id}` - Remove.
 
-## 📄 Licença
-
-MIT - Veja [LICENSE](LICENSE).
-
 ## ✒️ Autor
 
 - **Ícaro reis da paixão** - [Linkedin](www.linkedin.com/in/ícaro-reis-dev)
