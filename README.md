@@ -1,6 +1,6 @@
 # Projeto Spring Boot
 
-Projeto de exemplo com Spring Boot para operações CRUD.
+Projeto workshop, web service com Spring Boot e JPA / Hibernate
 
 ## 🛠️ Tecnologias
 
@@ -24,6 +24,6 @@ Projeto de exemplo com Spring Boot para operações CRUD.
 
 MIT - Veja [LICENSE](LICENSE).
 
-## ✒️ Autores
+## ✒️ Autor
 
-- **Seu Nome** - [GitHub](https://github.com/seu-usuario)
+- **Ícaro reis da paixão** - [Linkedin](www.linkedin.com/in/ícaro-reis-dev)
