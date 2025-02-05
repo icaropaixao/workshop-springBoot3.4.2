@@ -20,7 +20,12 @@ public class UserResource {
     // exemplo de requisição
     @GetMapping
     public ResponseEntity<User> finAllUsers() {
-        User user = new User(1L,"Mari","mari@","12223","55588");
+        User user = new User(1L,"Mari","mari@","12223","55588","Flamengo");
+
+        if (user.getTime() == "Flamengo"){
+            user.setTime("Flamengo é o melhor!");
+            return ResponseEntity.ok().body(user);
+        }
         return ResponseEntity.ok().body(user);
     }
 

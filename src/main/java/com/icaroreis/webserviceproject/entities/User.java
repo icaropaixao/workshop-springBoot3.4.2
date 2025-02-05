@@ -12,17 +12,20 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+    private String time;
 
     // construtor vazio pois ja estamos utilizando um framework (Spring)
     public User() {
 
     }
-    public User(Long id, String name, String email, String phone, String password) {
+    public User(Long id, String name, String email, String phone, String password, String time) {
+
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.time = time;
 
     }
 
@@ -57,6 +60,12 @@ public class User implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getTime() {
+        return time;
+    }
+    public void setTime(String time) {
+        this.time = time;
     }
 
     //hash code and equals
