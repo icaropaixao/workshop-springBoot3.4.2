@@ -6,27 +6,37 @@ package com.icaroreis.webserviceproject.resources;
 relacionadas aos usuários. */
 
 import com.icaroreis.webserviceproject.entities.User;
+import com.icaroreis.webserviceproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
-@RequestMapping(value="/Users") // guia no localHost
+@RequestMapping(value="/users") // guia no localHost
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
 
-    // exemplo de requisição
+    // Requisições
     @GetMapping
-    public ResponseEntity<User> finAllUsers() {
-        User user = new User(1L,"Mari","mari@","12223","55588","Flamengo");
+    public ResponseEntity<List<User>> finAllUsers() {
+        List<User> list = userService.findAll();
 
-        if (user.getTime() == "Flamengo"){
-            user.setTime("Flamengo é o melhor!");
-            return ResponseEntity.ok().body(user);
-        }
-        return ResponseEntity.ok().body(user);
+        return ResponseEntity.ok().body(list);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        User obj = userService.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
 
 }
