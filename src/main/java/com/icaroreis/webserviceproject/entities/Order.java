@@ -1,5 +1,7 @@
 package com.icaroreis.webserviceproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -12,9 +14,13 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT") // formato da data
     private Instant moment; // classe que representa data e hora
 
     @ManyToOne
@@ -23,15 +29,16 @@ public class Order implements Serializable {
 
     public Order() {
     }
-    public Order(long id, Instant moment, User client) {
+
+    public Order(Long id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;
         this.client = client;
     }
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public Instant getMoment() {
@@ -46,7 +53,6 @@ public class Order implements Serializable {
     public void setClient(User client) {
         this.client = client;
     }
-
 
     @Override
     public boolean equals(Object o) {

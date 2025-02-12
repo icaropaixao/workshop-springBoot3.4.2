@@ -1,6 +1,7 @@
 package com.icaroreis.webserviceproject.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import com.icaroreis.webserviceproject.entities.Order;
@@ -28,13 +29,14 @@ public class User implements Serializable {
     private String password;
     private String time;
 
+    // ANOTAÇÃO PARA QUE A APLICAÇÃO NÃO ENTRE EM UM LOOPING
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();// associação: 1 Client tem * varios pedidos
 
     public List<Order> getOrders() {
         return orders;
     }
-
 
     // construtor vazio pois ja estamos utilizando um framework (Spring)
     public User() {
@@ -50,7 +52,6 @@ public class User implements Serializable {
         this.time = time;
 
     }
-
 
     //getters and setters
     public Long getId() {
@@ -101,6 +102,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
 
 }
