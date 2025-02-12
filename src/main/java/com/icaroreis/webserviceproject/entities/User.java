@@ -3,7 +3,12 @@ package com.icaroreis.webserviceproject.entities;
 
 import jakarta.persistence.*;
 
+import com.icaroreis.webserviceproject.entities.Order;
+import org.springframework.data.domain.Sort;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -22,6 +27,14 @@ public class User implements Serializable {
     private String phone;
     private String password;
     private String time;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();// associação: 1 Client tem * varios pedidos
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
 
     // construtor vazio pois ja estamos utilizando um framework (Spring)
     public User() {
