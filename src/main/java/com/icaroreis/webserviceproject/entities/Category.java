@@ -8,7 +8,9 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -20,6 +22,10 @@ public class Category  implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    // associação entre produto e categoria
+
+    private Set<Product> products = new HashSet<>();
 
     // Constructors
     public Category() {}
@@ -42,6 +48,10 @@ public class Category  implements Serializable {
         this.name = name;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
     // hashCode & equals
     @Override
     public boolean equals(Object o) {
@@ -53,5 +63,7 @@ public class Category  implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 
 }
