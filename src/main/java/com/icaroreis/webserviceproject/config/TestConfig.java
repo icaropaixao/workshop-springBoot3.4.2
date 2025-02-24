@@ -2,11 +2,14 @@ package com.icaroreis.webserviceproject.config;
 
 import com.icaroreis.webserviceproject.entities.Category;
 import com.icaroreis.webserviceproject.entities.Order;
+import com.icaroreis.webserviceproject.entities.Product;
 import com.icaroreis.webserviceproject.entities.User;
 import com.icaroreis.webserviceproject.entities.enums.OrderStatus;
 import com.icaroreis.webserviceproject.repositories.CategoryRepository;
 import com.icaroreis.webserviceproject.repositories.OrderRepository;
+import com.icaroreis.webserviceproject.repositories.ProductRepository;
 import com.icaroreis.webserviceproject.repositories.UserRepository;
+import com.icaroreis.webserviceproject.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +31,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456","Flamengo");
@@ -41,10 +47,17 @@ public class TestConfig implements CommandLineRunner {
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
         // salvando no banco de dadoss
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRepository.saveAll(Arrays.asList(p1, p2, p3,p4,p5));
 
     }
 }
