@@ -1,11 +1,8 @@
 package com.icaroreis.webserviceproject.entities;
 
 // jakarta imports
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -24,7 +21,8 @@ public class Category  implements Serializable {
     private String name;
 
     // associação entre produto e categoria
-
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories") // nome da variavel mapeada da classe Produtc
     private Set<Product> products = new HashSet<>();
 
     // Constructors

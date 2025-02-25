@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
-public class Product  implements Serializable {
+public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,11 +23,15 @@ public class Product  implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient
+    // Mapeamento entre MANY TO MANY (Muitos para Muitos)
+    @ManyToMany                                                                             // definir a chave da outra entidade
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<Category>();
 
     // construtores
-    public Product() {}
+    public Product() {
+    }
+
     public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
         this.name = name;
@@ -39,6 +43,7 @@ public class Product  implements Serializable {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -46,6 +51,7 @@ public class Product  implements Serializable {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -53,6 +59,7 @@ public class Product  implements Serializable {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -60,6 +67,7 @@ public class Product  implements Serializable {
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -67,6 +75,7 @@ public class Product  implements Serializable {
     public String getImgUrl() {
         return imgUrl;
     }
+
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
