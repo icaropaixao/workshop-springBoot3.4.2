@@ -1,5 +1,6 @@
 package com.icaroreis.webserviceproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.icaroreis.webserviceproject.entities.pk.OrderItemPk;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -10,21 +11,21 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrdemItem implements Serializable {
+public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
     private Double price;
 
     // construtores
-    public OrdemItem() {
+    public OrderItem() {
 
     }
 
-    public OrdemItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
@@ -32,6 +33,7 @@ public class OrdemItem implements Serializable {
 
     }
     // Gets sets
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
@@ -64,8 +66,8 @@ public class OrdemItem implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        OrdemItem ordemItem = (OrdemItem) o;
-        return Objects.equals(id, ordemItem.id);
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id);
     }
     @Override
     public int hashCode() {

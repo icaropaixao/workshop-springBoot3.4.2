@@ -1,14 +1,8 @@
 package com.icaroreis.webserviceproject.config;
 
-import com.icaroreis.webserviceproject.entities.Category;
-import com.icaroreis.webserviceproject.entities.Order;
-import com.icaroreis.webserviceproject.entities.Product;
-import com.icaroreis.webserviceproject.entities.User;
+import com.icaroreis.webserviceproject.entities.*;
 import com.icaroreis.webserviceproject.entities.enums.OrderStatus;
-import com.icaroreis.webserviceproject.repositories.CategoryRepository;
-import com.icaroreis.webserviceproject.repositories.OrderRepository;
-import com.icaroreis.webserviceproject.repositories.ProductRepository;
-import com.icaroreis.webserviceproject.repositories.UserRepository;
+import com.icaroreis.webserviceproject.repositories.*;
 import com.icaroreis.webserviceproject.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -61,11 +58,23 @@ public class TestConfig implements CommandLineRunner {
         p5.getCategories().add(cat2);
 
 
-        // salvando no banco de dadoss
+        // salvando no banco de dados
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         productRepository.saveAll(Arrays.asList(p1, p2, p3,p4,p5));
+
+        // Associação das ordems de pedidos com os pedidos, ordens, quantidade e preço
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2,oi3,oi4));
+
+
+
+
 
     }
 }
