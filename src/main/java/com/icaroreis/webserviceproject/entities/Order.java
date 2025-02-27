@@ -34,7 +34,11 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
+    // associação entre Order e Payment
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL) // mapeando as duas entidades para ter o mesmo ID
+    private Payment payment;
 
+    // constructors
     public Order() {
     }
     public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
@@ -43,6 +47,8 @@ public class Order implements Serializable {
         setOrderStatus(orderStatus); // jeito de implementar no construtor sem modificar o tipo
         this.client = client;
     }
+
+    // gets sets
     public Long getId() {
         return id;
     }
@@ -73,10 +79,20 @@ public class Order implements Serializable {
         this.client = client;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public Set<OrderItem> getItems() {
         return items;
     }
 
+
+
+    // hash and equals
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
