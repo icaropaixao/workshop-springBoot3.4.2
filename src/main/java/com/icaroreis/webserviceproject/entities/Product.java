@@ -1,6 +1,7 @@
 package com.icaroreis.webserviceproject.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.sql.ast.tree.from.MappedByTableGroup;
 
@@ -27,6 +28,9 @@ public class Product implements Serializable {
     @ManyToMany                                                                             // definir a chave da outra entidade
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<Category>();
+
+    @OneToMany(mappedBy = "id.product")
+    Set<OrderItem> items = new HashSet<>();
 
     // construtores
     public Product() {
@@ -84,6 +88,14 @@ public class Product implements Serializable {
         return categories;
     }
 
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
+    }
 
     // hascode equals
     @Override
