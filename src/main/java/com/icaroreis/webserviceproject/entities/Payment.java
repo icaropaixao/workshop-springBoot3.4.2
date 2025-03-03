@@ -1,5 +1,6 @@
 package com.icaroreis.webserviceproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class Payment implements Serializable {
 
     // associações
     // Payment é uma classe dependente da classe Order. abaixo o mapeamento correto
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Order order;

@@ -91,6 +91,17 @@ public class Order implements Serializable {
     }
 
 
+    // METODO TOTAL
+    public Double getTotal() {
+        double soma = 0;
+
+        // percorrendo toda a lista do pedido para calcular o total
+        for (OrderItem item : items) {
+            soma = soma + item.getPrice();
+        }
+        return soma;
+    }
+
 
     // hash and equals
     @Override
