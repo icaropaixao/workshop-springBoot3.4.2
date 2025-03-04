@@ -50,5 +50,14 @@ public class UserResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    // delete de um usuario no banco de dados
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+
+
+    }
+
 
 }
