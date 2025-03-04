@@ -4,6 +4,7 @@ import com.icaroreis.webserviceproject.entities.User;
 import com.icaroreis.webserviceproject.repositories.UserRepository;
 import com.icaroreis.webserviceproject.services.exceptions.DatabaseException;
 import com.icaroreis.webserviceproject.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -45,7 +46,7 @@ public class UserService {
              userRepository.deleteById(id);
             // caso de uma excpetion do tipo EmpryResult, lança uma ResourceNotFoundException
          } catch (EmptyResultDataAccessException e) {
-             throw new ResourceNotFoundException(id);
+                 throw new ResourceNotFoundException(id);
 
          }
          catch (DataIntegrityViolationException e){
@@ -57,10 +58,18 @@ public class UserService {
     // metodo para atualizar um user
     public User update (Long id, User obj){
 
-        User entity = userRepository.getReferenceById(id);
-        updateData(entity, obj);
+        try{
+            User entity = userRepository.getReferenceById(id);
+            updateData(entity, obj);
 
-        return userRepository.save(entity);
+            return userRepository.save(entity);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+
+
+
     }
 
     private void updateData(User entity, User obj) {
