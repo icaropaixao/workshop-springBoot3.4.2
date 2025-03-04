@@ -2,8 +2,11 @@ package com.icaroreis.webserviceproject.services;
 
 import com.icaroreis.webserviceproject.entities.User;
 import com.icaroreis.webserviceproject.repositories.UserRepository;
+import com.icaroreis.webserviceproject.services.exceptions.DatabaseException;
 import com.icaroreis.webserviceproject.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.Optional;
 public class UserService {
 
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired // Essa anotação indica que o Spring deve injetar o UserRepository
     public UserService(UserRepository userRepository) {
@@ -37,7 +40,18 @@ public class UserService {
 
     // metodo para deletar um user
     public void delete (Long id) {
-        userRepository.deleteById(id);
+
+         try {
+             userRepository.deleteById(id);
+            // caso de uma excpetion do tipo EmpryResult, lança uma ResourceNotFoundException
+         } catch (EmptyResultDataAccessException e) {
+             throw new ResourceNotFoundException(id);
+
+         }
+         catch (DataIntegrityViolationException e){
+             throw new DatabaseException(e.getMessage());
+         }
+
     }
 
     // metodo para atualizar um user

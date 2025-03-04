@@ -1,5 +1,6 @@
 package com.icaroreis.webserviceproject.resources.exceptions;
 
+import com.icaroreis.webserviceproject.services.exceptions.DatabaseException;
 import com.icaroreis.webserviceproject.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,21 @@ public class ResourceExceptionHandler  {
         StandardError standardErr = new StandardError(Instant.now(),status.value(),mensage,ex.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(standardErr);
 
+    }
+
+    // para erros no  Delete
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> database(DatabaseException ex, HttpServletRequest request) {
+
+        // informações que serão lançadas
+        String mensage = "Data base Error";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError standardErr = new StandardError(Instant.now(),status.value(),mensage,ex.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(standardErr);
 
     }
+
+
 
 
 }
